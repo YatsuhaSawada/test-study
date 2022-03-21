@@ -1,3 +1,4 @@
+//  "Copyright [year] <Copyright Owner>"
 #define NOMINMAX
 
 #include "gtest/gtest.h"
@@ -9,7 +10,7 @@
 #include "iutest.hpp"
 
 
-//Test—p@ŠÖ”
+// Testç”¨ã€€é–¢æ•°
 namespace {
     typedef int* (Stack::* GetBody)();
     IUTEST_MAKE_PEEP(GetBody, Stack, GetBody);
@@ -17,7 +18,7 @@ namespace {
     typedef int (Stack::* GetCount)();
     IUTEST_MAKE_PEEP(GetCount, Stack, GetCount);
 
-    bool check_invaliant(Stack& stack) {
+    bool check_invaliant(const Stack& stack) {
         auto p = IUTEST_PEEP_GET(stack, Stack, GetBody)();
         int c = IUTEST_PEEP_GET(stack, Stack, GetCount)();
 
@@ -28,17 +29,16 @@ namespace {
     }
 }
 
-//Test StackƒNƒ‰ƒX‚Ìˆê˜A‚Ìƒƒ\ƒbƒh‚ÌŠm”F
+// Test Stackã‚¯ãƒ©ã‚¹ã®ä¸€é€£ã®ãƒ¡ã‚½ãƒƒãƒ‰ã®ç¢ºèª
 TEST(StackTest, SimpleStackTest) {
-
-    //Arrange
+    // Arrange
     Stack stk;
 
-    //Action
+    // Action
     stk.push(0);
     stk.push(2);
 
-    //Assert
+    // Assert
     int out;
 
     ASSERT_EQ(2, stk.count());
@@ -54,16 +54,15 @@ TEST(StackTest, SimpleStackTest) {
     ASSERT_TRUE(check_invaliant(stk));
 }
 
-//Test push_test
+// Test push_test
 TEST(StackTest, push_test) {
-
-    //Arrange
+    // Arrange
     Stack stk;
 
-    //Action
+    // Action
     stk.push(0);
 
-    //Assert
+    // Assert
     int out;
 
     ASSERT_EQ(1, stk.count());
@@ -74,20 +73,19 @@ TEST(StackTest, push_test) {
     ASSERT_TRUE(check_invaliant(stk));
 }
 
-//Test push test ¬‚³‚È”ÍˆÍ‚Ìpush‚ğ‚·‚é
+// Test push test å°ã•ãªç¯„å›²ã®pushã‚’ã™ã‚‹
 TEST(StackTest, push_small_range_test) {
-
-    //Arrange
+    // Arrange
     Stack stk;
 
-    std::vector<int> in = { 0, 1,2,3,4,5,6,7,8,9,10,11 };
+    std::vector<int> in = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
-    //Action
+    // Action
     for (const auto& v : in) {
         stk.push(v);
     }
 
-    //Assert
+    // Assert
     ASSERT_TRUE(check_invaliant(stk));
 
     for (int i = 0; i < in.size(); ++i) {
@@ -101,25 +99,24 @@ TEST(StackTest, push_small_range_test) {
     ASSERT_TRUE(check_invaliant(stk));
 }
 
-//Test push test ‘å‚«‚È”ÍˆÍ‚Ìpush‚·‚é
+// Test push test å¤§ããªç¯„å›²ã®pushã™ã‚‹
 TEST(StackTest, push_large_range_test) {
-
-    //Arrange
+    // Arrange
     Stack stk;
 
-    std::vector<int> in;
-    constexpr int max = std::numeric_limits<short>::max();
+    std::vector<int64_t> in;
+    constexpr int64_t max = std::numeric_limits<int16_t>::max();
     in.reserve(max);
-    for (int i = 0; i < max; ++i) {
+    for (int64_t i = 0; i < max; ++i) {
         in.push_back(i);
     }
 
-    //Action
+    // Action
     for (const auto& v : in) {
         stk.push(v);
     }
- 
-    //Assert
+
+    // Assert
     ASSERT_TRUE(check_invaliant(stk));
 
     for (int i = 0; i < max; ++i) {
@@ -129,33 +126,31 @@ TEST(StackTest, push_large_range_test) {
         ASSERT_EQ(true, stk.pop(out));
         ASSERT_EQ(max - i - 1, out);
     }
- 
+
     ASSERT_TRUE(check_invaliant(stk));
 }
 
-//Test pop test empty‚Ìpop
+// Test pop test emptyæ™‚ã®pop
 TEST(StackTest, pop_empty) {
-
-    //Arrange
+    // Arrange
     Stack stk;
 
-    //Action
+    // Action
     int out;
     bool act = stk.pop(out);
 
-    //Assert
+    // Assert
     ASSERT_EQ(0, stk.count());
     ASSERT_EQ(false, act);
     ASSERT_TRUE(check_invaliant(stk));
 }
 
-//Test pop test ˆê“x—p“x‚ğ“ü‚ê‚½‚Ì‚¿‚Ìempty‚Ìpop
+// Test pop test ä¸€åº¦ç”¨åº¦ã‚’å…¥ã‚ŒãŸã®ã¡ã®emptyæ™‚ã®pop
 TEST(StackTest, pop_re_empty) {
-
-    //Arrange
+    // Arrange
     Stack stk;
 
-    std::vector<int> in = { 0, 1,2,3,4,5,6,7,8,9,10,11 };
+    std::vector<int> in = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
     for (const auto& v : in) {
         stk.push(v);
@@ -166,32 +161,31 @@ TEST(StackTest, pop_re_empty) {
         stk.pop(out);
     }
 
-    //Action
+    // Action
     int out;
     bool act = stk.pop(out);
 
-    //Assert
+    // Assert
     ASSERT_EQ(0, stk.count());
     ASSERT_EQ(false, act);
     ASSERT_TRUE(check_invaliant(stk));
 }
 
-//Test push test ƒƒ‚ƒŠŒÍŠ‰
+// Test push test ãƒ¡ãƒ¢ãƒªæ¯æ¸‡
 TEST(StackTest, push_exhausted_test) {
-
-    //Arrange
+    // Arrange
     Stack stk;
 
-    constexpr int max = std::numeric_limits<int>::max();
+    constexpr int64_t max = std::numeric_limits<int64_t>::max();
 
-    //Action
+    // Action
     bool ret = true;
     for (int i = 0; i < max; ++i) {
         ret = stk.push(i);
         if (!ret) break;
     }
 
-    //Assert
+    // Assert
     ASSERT_FALSE(ret);
     ASSERT_TRUE(check_invaliant(stk));
 }

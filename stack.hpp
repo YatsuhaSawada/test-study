@@ -1,14 +1,12 @@
-#ifndef _STACK_H_
-#define _STACK_H_
+//  "Copyright [year] <Copyright Owner>"
+#pragma once
 
-/*
+/**
 @invariant _count < _capacity
 @invariant _pBody != nullptr
 */
-class Stack
-{
-public:
-
+class Stack {
+ public:
     Stack();
     ~Stack();
 
@@ -17,27 +15,24 @@ public:
 
     Stack& operator=(const Stack&&) = delete;
     Stack& operator=(Stack&&) = delete;
-
-    
     /*
-    @requier non
-    @ensure non
+    @pre non
+    @post non
     */
     int count() const;
 
     /*
-    @requier non
-    @ensure count() is incriment
+    @pre non
+    @post count() is incriment
     */
     bool push(int v);
     /*
-    @requier count() > 0
-    @ensure count() is decrement
+    @pre count() > 0
+    @post count() is decrement
     */
     bool pop(int& v);
 
-private:
-
+ private:
     int* GetBody();
     int GetCount();
 
@@ -45,5 +40,3 @@ private:
     int _count;
     int* _pBody;
 };
-
-#endif
